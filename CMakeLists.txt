@@ -1286,6 +1286,12 @@ endif()
 check_include_file(cpuid.h HAVE_CPUID_H)
 tuklib_add_definition_if(liblzma HAVE_CPUID_H)
 
+# wmmintrin.h
+check_include_file(wmmintrin.h HAVE_WMMINTRIN_H)
+
+# smmintrin.h
+check_include_file(smmintrin.h HAVE_SMMINTRIN_H)
+
 # immintrin.h:
 check_include_file(immintrin.h HAVE_IMMINTRIN_H)
 if(HAVE_IMMINTRIN_H)
@@ -1304,6 +1310,15 @@ if(HAVE_IMMINTRIN_H)
         HAVE__MM_MOVEMASK_EPI8)
     tuklib_add_definition_if(liblzma HAVE__MM_MOVEMASK_EPI8)
 
+    set(HAVE_USABLE_CLMUL_TEST_INCLUDES,)
+    if(HAVE_WMMINTRIN_H)
+        list(APPEND HAVE_USABLE_CLMUL_TEST_INCLUDES "#include <wmmintrin.h>")
+    endif()
+    if(HAVE_SMMINTRIN_H)
+        list(APPEND HAVE_USABLE_CLMUL_TEST_INCLUDES "#include <smmintrin.h>")
+    endif()
+    list(JOIN HAVE_USABLE_CLMUL_TEST_INCLUDES "\n" HAVE_USABLE_CLMUL_TEST_INCLUDES)
+
     # CLMUL intrinsic:
     option(XZ_CLMUL_CRC "Use carryless multiplication for CRC \
 calculation (with runtime detection) if supported by the compiler" ON)
@@ -1311,6 +1326,7 @@ calculation (with runtime detection) if supported by the compiler" ON)
     if(XZ_CLMUL_CRC)
         check_c_source_compiles("
                 #include <immintrin.h>
+                ${HAVE_USABLE_CLMUL_TEST_INCLUDES}
                 #if defined(__e2k__) && __iset__ < 6
                 #   error
                 #endif
@@ -1326,6 +1342,7 @@ calculation (with runtime detection) if supported by the compiler" ON)
                 }
             "
             HAVE_USABLE_CLMUL)
+        unset(HAVE_USABLE_CLMUL_TEST_INCLUDES)
         tuklib_add_definition_if(liblzma HAVE_USABLE_CLMUL)
     endif()
 endif()

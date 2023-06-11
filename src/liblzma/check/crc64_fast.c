@@ -100,6 +100,17 @@ lzma_crc64_generic(const uint8_t *buf, size_t size, uint64_t crc)
 // Function dispatching //
 //////////////////////////
 
+#if __has_include(<intrin.h>)
+#	include <intrin.h>
+#endif /* __has_include(<intrin.h>)*/
+#include <immintrin.h>
+#if __has_include(<wmmintrin.h>)
+#	include <wmmintrin.h>
+#endif /* __has_include(<wmmintrin.h>) */
+#if __has_include(<smmintrin.h>)
+#	include <smmintrin.h>
+#endif /* __has_include(<smmintrin.h>) */
+
 // If both the generic and arch-optimized implementations are usable, then
 // the function that is used is selected at runtime. See crc32_fast.c.
 
