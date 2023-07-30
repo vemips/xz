@@ -100,9 +100,11 @@ lzma_crc64_generic(const uint8_t *buf, size_t size, uint64_t crc)
 // Function dispatching //
 //////////////////////////
 
+#if _MSC_VER
 #if __has_include(<intrin.h>)
 #	include <intrin.h>
 #endif /* __has_include(<intrin.h>)*/
+#endif
 #include <immintrin.h>
 #if __has_include(<wmmintrin.h>)
 #	include <wmmintrin.h>
