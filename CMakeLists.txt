@@ -1980,11 +1980,11 @@ if(HAVE_DECODERS)
 
         if(WIN32 OR CYGWIN)
             # Add the Windows resource file for xzdec.exe or lzmadec.exe.
-            target_sources("${XZDEC}" PRIVATE "src/xzdec/${XZDEC}_w32res.rc")
-            set_source_files_properties(
-                "src/xzdec/${XZDEC}_w32res.rc" PROPERTIES
-                OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
-            )
+#            target_sources("${XZDEC}" PRIVATE "src/xzdec/${XZDEC}_w32res.rc")
+#            set_source_files_properties(
+#                "src/xzdec/${XZDEC}_w32res.rc" PROPERTIES
+#                OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
+#            )
         endif()
 
         if(SANDBOX_COMPILE_DEFINITION)
@@ -2056,10 +2056,10 @@ if(XZ_TOOL_LZMAINFO AND HAVE_DECODERS)
 
     if(WIN32 OR CYGWIN)
         # Add the Windows resource file for lzmainfo.exe.
-        target_sources(lzmainfo PRIVATE src/lzmainfo/lzmainfo_w32res.rc)
-        set_source_files_properties(src/lzmainfo/lzmainfo_w32res.rc PROPERTIES
-            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
-        )
+#        target_sources(lzmainfo PRIVATE src/lzmainfo/lzmainfo_w32res.rc)
+#        set_source_files_properties(src/lzmainfo/lzmainfo_w32res.rc PROPERTIES
+#            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
+#        )
     endif()
 
     tuklib_progname(lzmainfo)
@@ -2175,10 +2175,10 @@ this many MiB of RAM if xz cannot determine the amount at runtime")
 
     if(WIN32 OR CYGWIN)
         # Add the Windows resource file for xz.exe.
-        target_sources(xz PRIVATE src/xz/xz_w32res.rc)
-        set_source_files_properties(src/xz/xz_w32res.rc PROPERTIES
-            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
-        )
+#        target_sources(xz PRIVATE src/xz/xz_w32res.rc)
+#        set_source_files_properties(src/xz/xz_w32res.rc PROPERTIES
+#            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
+#        )
     endif()
 
     if(SANDBOX_COMPILE_DEFINITION)
